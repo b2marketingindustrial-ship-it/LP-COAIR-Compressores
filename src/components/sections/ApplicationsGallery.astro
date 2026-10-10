@@ -1,0 +1,145 @@
+---
+/**
+ * Galeria de aplicações — fase "prova" da biblioteca B2, no visual COAIR.
+ *
+ * Fundo industrial escuro em largura total, cabeçalho centrado e 4 cards-botão: a foto
+ * se dissolve no rodapé escuro do card, onde ficam o ícone verde, o título, o texto e a
+ * seta. O card inteiro é o CTA, por isso o `<button>` envolve a foto e o texto.
+ */
+import { Image } from 'astro:assets'
+import Section from '@components/Section.astro'
+import Icon from '@components/Icon.astro'
+import SectionHeader from '@components/SectionHeader.astro'
+import type { SectionProps } from '@lib/layout'
+import { applications } from '@data/sections/aplicacoes'
+
+type Props = SectionProps
+
+const { tone, rhythm } = Astro.props
+---
+
+<Section
+  id="aplicacoes"
+  tone={tone}
+  rhythm={rhythm}
+  container={false}
+  class="relative isolate overflow-hidden"
+>
+  <div
+    aria-hidden="true"
+    class="apps-bg pointer-events-none absolute inset-0 -z-10 rounded-3xl lg:rounded-[40px]"
+  ></div>
+
+  {/* Mais largo que o contêiner padrão, como no layout de referência */}
+  <div class="mx-auto max-w-[1760px] px-6 pt-8 pb-4 lg:px-12 2xl:px-20">
+    <SectionHeader
+      eyebrow={applications.eyebrow}
+      title={applications.title}
+      text={applications.text}
+      align="center"
+      width="4xl"
+      tone="light"
+      accent="green"
+    />
+
+    <ul class="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      {applications.items.map((app) => (
+        <li>
+          <button
+            type="button"
+            data-cta={`aplicacoes-${app.id}`}
+            class="btn-slave-whats app-card group relative flex h-full w-full flex-col overflow-hidden rounded-[10px] text-left transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_28px_56px_-28px_rgba(0,0,0,0.9)]"
+          >
+            <div class="relative aspect-[4/3] overflow-hidden">
+              <Image
+                src={app.photo.src}
+                alt={app.photo.alt}
+                format="webp"
+                width={640}
+                loading="lazy"
+                decoding="async"
+                class="h-full w-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.05]"
+              />
+              <span aria-hidden="true" class="app-fade pointer-events-none absolute inset-0" />
+            </div>
+
+            {/* Rodapé do card: sobe sobre a base da foto */}
+            <div class="relative -mt-6 flex flex-1 gap-4 pr-5 pb-6 pl-[22px]">
+              <span class="flex size-[52px] shrink-0 items-center justify-center rounded-md bg-brand-green text-neutral-light shadow-[0_10px_24px_-10px_rgb(63_220_90/0.7)]">
+                <Icon name={app.icon} class="size-[30px]" />
+              </span>
+              <span class="flex min-w-0 flex-1 flex-col">
+                <span class="flex min-h-[52px] items-center font-display text-lg leading-tight font-extrabold text-neutral-light">
+                  {app.label}
+                </span>
+                <span class="mt-1 flex items-center justify-between gap-2">
+                  <span class="font-sans text-[13px] leading-relaxed text-[#b4c6d9]">
+                    {app.description}
+                  </span>
+                  <span class="flex size-[46px] shrink-0 items-center justify-center rounded-full border-[1.5px] border-[#b2c3dc]/75 text-neutral-light transition-[background-color,border-color,color,transform] duration-300 group-hover:translate-x-0.5 group-hover:border-brand-green group-hover:bg-brand-green group-hover:text-primary-dark-900">
+                    <Icon name="arrow-right" class="size-[18px]" />
+                  </span>
+                </span>
+              </span>
+            </div>
+          </button>
+        </li>
+      ))}
+    </ul>
+  </div>
+</Section>
+
+<style>
+  /* Fundo de galpão escuro: luzes do teto nos cantos, colunas sutis e reflexo do piso. */
+  .apps-bg {
+    background:
+      radial-gradient(34% 26% at 6% 0%, rgb(64 140 205 / 0.42), transparent 70%),
+      radial-gradient(30% 24% at 94% 2%, rgb(64 140 205 / 0.36), transparent 70%),
+      radial-gradient(60% 28% at 50% 100%, rgb(30 80 120 / 0.32), transparent 70%),
+      repeating-linear-gradient(90deg, transparent 0 136px, rgb(120 170 210 / 0.035) 136px 140px),
+      linear-gradient(to bottom, #062036, #00121f 40%, #00121f 75%, #021a2b);
+  }
+
+  /* Contorno azulado, mais claro no topo; verde no hover. */
+  .app-card {
+    border: 1px solid transparent;
+    background:
+      linear-gradient(#03121e, #03121e) padding-box,
+      linear-gradient(
+          to bottom,
+          rgb(120 196 236 / 0.7),
+          rgb(40 120 165 / 0.4) 55%,
+          rgb(20 90 130 / 0.55)
+        )
+        border-box;
+  }
+
+  .app-card:hover,
+  .app-card:focus-visible {
+    background:
+      linear-gradient(#03121e, #03121e) padding-box,
+      linear-gradient(to bottom, rgb(63 220 90 / 0.9), rgb(63 220 90 / 0.3)) border-box;
+  }
+
+  /* A foto escurece até a cor do rodapé do card. */
+  .app-fade {
+    background: linear-gradient(
+      to bottom,
+      transparent 45%,
+      rgb(3 18 30 / 0.55) 70%,
+      rgb(3 18 30 / 0.92) 90%,
+      #03121e 100%
+    );
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .app-card,
+    .app-card * {
+      transition: none !important;
+    }
+
+    .app-card:hover {
+      transform: none;
+    }
+  }
+</style>

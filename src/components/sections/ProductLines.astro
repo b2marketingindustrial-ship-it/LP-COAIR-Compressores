@@ -1,0 +1,186 @@
+---
+/**
+ * Linhas de produto — fase "oferta" da biblioteca B2.
+ *
+ * Cabeçalho à esquerda, grid de 3–4 cards com um card escuro. Fundo e respiro vêm
+ * da composição via `tone`/`rhythm`.
+ *
+ * Visual COAIR: sem carrossel de marcas (a oferta é de linha própria), marcador e
+ * acentos verdes, foto em cena preenchendo o palco do card.
+ */
+import { Image } from 'astro:assets'
+import Section from '@components/Section.astro'
+import Icon from '@components/Icon.astro'
+import SectionHeader from '@components/SectionHeader.astro'
+import type { SectionProps } from '@lib/layout'
+import { cta } from '@data/content'
+import { productLines } from '@data/sections/linhas'
+
+type Props = SectionProps
+
+const { tone, rhythm } = Astro.props
+const lines = productLines.items
+---
+
+<Section id="linhas" tone={tone} rhythm={rhythm}>
+  <SectionHeader
+    eyebrow={productLines.eyebrow}
+    title={productLines.title}
+    text={productLines.text}
+    width="2xl"
+    accent="green"
+    shape="dash"
+  />
+
+  <div
+    class:list={[
+      'mt-10 grid gap-5 sm:grid-cols-2',
+      lines.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4',
+    ]}
+  >
+    {lines.map((line, i) => (
+      <article
+        class:list={[
+          'product-card group relative flex flex-col overflow-hidden rounded-2xl border transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1.5',
+          line.dark
+            ? 'navy-premium border-white/10 shadow-[0_18px_40px_-24px_rgba(0,24,48,0.6)] hover:border-brand-green/60 hover:shadow-[0_28px_56px_-24px_rgba(0,24,48,0.75)]'
+            : 'border-neutral-gray-200/70 bg-neutral-light shadow-[0_1px_2px_rgba(13,29,48,0.05)] hover:border-brand-green/50 hover:shadow-[0_28px_56px_-28px_rgba(0,33,71,0.35)]',
+        ]}
+      >
+        {/* Linha de acento no topo — cresce no hover */}
+        <span
+          aria-hidden="true"
+          class="absolute inset-x-0 top-0 z-10 h-[3px] origin-left scale-x-0 bg-brand-green transition-transform duration-300 ease-out group-hover:scale-x-100"
+        />
+
+        {/* Palco da imagem */}
+        <div class="relative h-52 overflow-hidden bg-primary-dark-900">
+          <Image
+            src={line.photo.src}
+            alt={line.photo.alt}
+            format="webp"
+            width={640}
+            loading="lazy"
+            decoding="async"
+            class="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+          />
+          <span
+            aria-hidden="true"
+            class="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-primary-dark-900/55 to-transparent"
+          />
+
+          <span class="absolute top-4 left-4 z-[2] font-display text-[11px] font-extrabold tracking-[0.2em] text-neutral-light/80">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+
+          <span class="absolute top-3.5 right-4 z-[2] rounded-full border border-primary-dark/10 bg-neutral-light px-2.5 py-1 font-sans text-[10px] font-bold tracking-[0.16em] text-primary-dark/75 uppercase">
+            {line.tag}
+          </span>
+        </div>
+
+        {/* Conteúdo */}
+        <div class="flex flex-1 flex-col px-6 pt-5 pb-4">
+          <h3
+            class:list={[
+              'font-display text-lg leading-snug font-extrabold',
+              line.dark ? 'text-neutral-light' : 'text-ink',
+            ]}
+          >
+            {line.title}
+          </h3>
+
+          <p
+            class:list={[
+              'mt-2 font-sans text-[13px] leading-relaxed',
+              line.dark ? 'text-neutral-light/65' : 'text-ink-soft',
+            ]}
+          >
+            {line.description}
+          </p>
+
+          <ul class="mt-4 mb-4 flex flex-col gap-2">
+            {line.features.map((feature) => (
+              <li
+                class:list={[
+                  'flex items-center gap-2.5 font-sans text-[13px] font-medium',
+                  line.dark ? 'text-neutral-light/90' : 'text-ink',
+                ]}
+              >
+                <span
+                  class:list={[
+                    'flex size-5 shrink-0 items-center justify-center rounded-full',
+                    line.dark
+                      ? 'bg-brand-green/20 text-brand-green'
+                      : 'bg-brand-green/12 text-brand-green-deep',
+                  ]}
+                >
+                  <Icon name="check" class="size-3" />
+                </span>
+                {feature}
+              </li>
+            ))}
+          </ul>
+
+          <button
+            type="button"
+            data-cta={`linhas-${line.id}`}
+            class:list={[
+              'btn-slave-whats mt-auto flex items-center justify-between gap-3 border-t pt-3 font-sans text-[13px] font-bold transition-colors duration-200',
+              line.dark
+                ? 'border-white/10 text-neutral-light hover:text-brand-green'
+                : 'border-neutral-gray-200/60 text-primary-dark hover:text-brand-green-deep',
+            ]}
+          >
+            <span>{cta.card}</span>
+            <span
+              class:list={[
+                'flex size-8 shrink-0 items-center justify-center rounded-full transition-[background-color,color,transform] duration-300 group-hover:translate-x-0.5 group-hover:bg-brand-green group-hover:text-neutral-light',
+                line.dark
+                  ? 'bg-white/10 text-neutral-light'
+                  : 'bg-brand-green/12 text-brand-green-deep',
+              ]}
+            >
+              <Icon name="arrow-right" class="size-3.5" />
+            </span>
+          </button>
+        </div>
+      </article>
+    ))}
+  </div>
+</Section>
+
+<style>
+  /* Canto técnico discreto que aparece no hover */
+  .product-card::after {
+    content: '';
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    width: 14px;
+    height: 14px;
+    border-right: 2px solid var(--color-brand-green);
+    border-bottom: 2px solid var(--color-brand-green);
+    opacity: 0;
+    transform: translate(4px, 4px);
+    transition:
+      opacity 300ms ease,
+      transform 300ms ease;
+    pointer-events: none;
+  }
+
+  .product-card:hover::after {
+    opacity: 0.9;
+    transform: translate(0, 0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .product-card,
+    .product-card img,
+    .product-card span {
+      transition: none !important;
+    }
+    .product-card:hover {
+      transform: none;
+    }
+  }
+</style>
