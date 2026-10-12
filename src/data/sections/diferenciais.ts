@@ -4,16 +4,15 @@
  * Bloco navy em largura total com a frase de autoridade e a pessoa recortada, e 5
  * cards sobrepostos à base do bloco. São 5 exatos: o grid é `lg:grid-cols-5`.
  *
- * COAIR Compressores: frase de autoridade = candidata 2 do briefing (título do
- * anúncio XFLOW CAR); a candidata 1 encosta no território da Chicago Pneumatic.
+ * COAIR Compressores: título e foto trocados a pedido do cliente (10/10/2026). A
+ * foto já traz a pessoa e os compressores, então não há pessoa recortada (`person: null`).
  * A garantia sempre acompanha a condicionante das manutenções obrigatórias.
  */
 import type { IconName } from '@data/icons'
 import type { Photo } from '@data/types'
 import { site } from '@data/site'
 
-import cenario from '@assets/diferenciais/cenario.png'
-import pessoa from '@assets/diferenciais/pessoa.png'
+import cena from '@assets/diferenciais/equipe-compressores.jpg'
 
 export interface Reason {
   icon: IconName
@@ -23,17 +22,18 @@ export interface Reason {
 
 export const why = {
   eyebrow: `Por que a ${site.brandShort}`,
-  /** Cada item é uma linha do H2 (quebra forçada). 3–6 palavras no total. */
-  titleLines: ['Ar contínuo', 'para a sua produção.'],
+  /** Cada item é uma linha do H2 (quebra forçada). */
+  titleLines: [
+    'Compressores de parafuso de alta tecnologia',
+    'com o melhor custo‑benefício do mercado.',
+  ],
   text: `Compressores de parafuso com projeto próprio ${site.brandShort}, dimensionados pela engenharia conforme a demanda, a pressão e a vazão da operação. Equipe técnica e laboratório internos, e garantia de 3 anos condicionada às manutenções obrigatórias previstas pela ${site.brandShort}.`,
   scene: {
-    src: cenario,
-    alt: 'Sala de compressores industriais com tanques azuis e tubulações',
+    src: cena,
+    alt: `Técnico da ${site.brandShort} ao lado de compressores de parafuso ${site.brandShort}`,
   },
-  person: {
-    src: pessoa,
-    alt: `Técnico da ${site.brandShort}`,
-  },
+  /** Pessoa recortada sobre o cenário. `null` quando a foto do cenário já traz a pessoa. */
+  person: null,
   reasons: [
     {
       icon: 'cog',
@@ -66,6 +66,6 @@ export const why = {
   titleLines: readonly string[]
   text: string
   scene: Photo
-  person: Photo
+  person: Photo | null
   reasons: readonly [Reason, Reason, Reason, Reason, Reason]
 }

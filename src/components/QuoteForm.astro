@@ -8,7 +8,7 @@
  */
 import Icon from './Icon.astro'
 import Eyebrow from './Eyebrow.astro'
-import { quote, cta } from '../data/content'
+import { quote } from '../data/content'
 import { site } from '../data/site'
 
 const isDev = import.meta.env.DEV
@@ -139,16 +139,12 @@ const bottomWaves = Array.from({ length: 14 }, (_, i) => {
           {quote.text}
         </p>
 
-        <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-          <button
-            type="button"
-            data-cta="cotacao-whatsapp"
-            class="btn-slave-whats inline-flex items-center justify-center gap-2.5 bg-primary-dark px-6 py-3.5 font-sans text-[15px] font-semibold text-neutral-light transition-colors duration-200 hover:bg-primary-dark-800"
-          >
-            <Icon name="whatsapp" class="size-4 shrink-0" />
-            {cta.whatsapp}
-          </button>
-        </div>
+        {/* Espaço reservado para o botão de WhatsApp do plugin (entra depois, no WordPress) */}
+        <div
+          data-cta="cotacao-whatsapp"
+          data-whatsapp-slot
+          class="mt-6 flex min-h-[52px] flex-col gap-3 sm:flex-row sm:items-center"
+        ></div>
 
         <ul class="mt-7 flex flex-wrap items-center gap-x-5 gap-y-4">
           {quote.trust.map((item) => (

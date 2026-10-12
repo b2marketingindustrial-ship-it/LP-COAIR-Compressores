@@ -50,7 +50,7 @@ export const hero = {
   title: 'Compressores de parafuso para a sua indústria.',
   /** Trecho do título destacado em verde (precisa existir dentro de `title`). */
   highlight: 'sua indústria',
-  text: 'Linhas XFLOW CAR, Heavy Duty e VSD, de 10 a 300 HP, com dimensionamento técnico pela engenharia da COAIR. Venda nacional para empresas.',
+  text: 'Linhas XFLOW CAR, Heavy Duty e VSD, de 10 a 300 HP, com eficiência energética e dimensionamento técnico, pela engenharia da COAIR.',
   /** Rótulos dos botões do hero (o vocabulário `cta` continua valendo no resto da página). */
   ctaPrimary: 'Solicite sua cotação',
   ctaSecondary: 'Identifique seu compressor',
@@ -60,7 +60,7 @@ export const hero = {
   },
   points: [
     { icon: 'gauge', line1: 'Linhas de', line2: '10 a 300 HP' },
-    { icon: 'cog', line1: 'Projeto próprio', line2: 'COAIR' },
+    { icon: 'shield', line1: '3 anos de', line2: 'garantia' },
     { icon: 'sliders', line1: 'Dimensionamento', line2: 'técnico' },
   ],
 } as const satisfies {

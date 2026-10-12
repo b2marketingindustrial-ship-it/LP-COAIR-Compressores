@@ -4,18 +4,18 @@
  * 4 cards-botão com foto, ícone verde e cabeçalho centrado sobre fundo escuro.
  * O card inteiro é o CTA.
  *
- * COAIR Compressores: os 4 contextos são idênticos às palavras-chave de aplicação
- * da campanha (fábrica, usinagem, marmoraria, marcenaria). Frases inferidas, a
- * confirmar com o cliente. Fotos PROVISÓRIAS (compressor e sala de compressores);
- * trocar por 4 fotos 1200×900 de cada contexto.
+ * COAIR Compressores: a pedido do cliente (10/10/2026), o módulo virou
+ * institucional — "Por que escolher as soluções da COAIR?" —, com textos e fotos
+ * do modelo enviado. A foto de "Atendimento especializado" foi recortada do print
+ * do modelo (baixa resolução); trocar pelo arquivo original quando chegar.
  */
 import type { Photo } from '@data/types'
 import type { IconName } from '@data/icons'
 
-import app1 from '@assets/aplicacoes/aplicacao-1.png'
-import app2 from '@assets/aplicacoes/aplicacao-2.png'
-import app3 from '@assets/aplicacoes/aplicacao-3.png'
-import app4 from '@assets/aplicacoes/aplicacao-4.png'
+import solucoes from '@assets/aplicacoes/solucoes-completas.jpg'
+import eficiencia from '@assets/aplicacoes/eficiencia-energetica.jpg'
+import atendimento from '@assets/aplicacoes/atendimento-especializado.jpg'
+import operacao from '@assets/aplicacoes/operacao-sem-paradas.jpg'
 
 export interface Application {
   id: string
@@ -26,37 +26,50 @@ export interface Application {
 }
 
 export const applications = {
-  eyebrow: 'Aplicações',
-  title: 'Ar comprimido para cada processo',
-  text: 'Compressores de parafuso para fábricas, usinagem, marmorarias e marcenarias, dimensionados conforme a pressão, a vazão e o regime de cada operação.',
+  eyebrow: 'Institucional',
+  title: 'Por que escolher as soluções da COAIR?',
+  text: 'Um ecossistema completo de ar comprimido industrial, desenvolvido para entregar eficiência energética, produtividade e escalabilidade para a sua operação.',
   items: [
     {
-      id: 'pequenas-fabricas',
-      label: 'Pequenas fábricas',
-      description: 'Ar comprimido contínuo para linhas de produção e ferramentas pneumáticas.',
+      id: 'solucoes-completas',
+      label: 'Soluções completas',
+      description:
+        'Compressores, secadores, peças, lubrificantes e serviços para atender toda a operação.',
       icon: 'factory',
-      photo: { src: app1, alt: 'Compressor de ar de parafuso COAIR em planta industrial' },
+      photo: {
+        src: solucoes,
+        alt: 'Compressores de parafuso COAIR instalados em sala de compressores industrial',
+      },
     },
     {
-      id: 'usinagem',
-      label: 'Usinagem',
-      description: 'Ar para centros de usinagem, limpeza de peças e acionamentos pneumáticos.',
-      icon: 'cog',
-      photo: { src: app2, alt: 'Unidade compressora de parafuso em sala de compressores' },
+      id: 'eficiencia-energetica',
+      label: 'Eficiência energética',
+      description:
+        'Tecnologia VSD e projetos dimensionados para reduzir consumo e elevar a performance.',
+      icon: 'zap',
+      photo: { src: eficiencia, alt: 'Compressor de parafuso COAIR em planta industrial' },
     },
     {
-      id: 'marmorarias',
-      label: 'Marmorarias',
-      description: 'Ar comprimido para ferramentas pneumáticas no corte e acabamento de pedras.',
-      icon: 'mountain',
-      photo: { src: app3, alt: 'Compressor de ar industrial ao lado de reservatório e tubulações' },
+      id: 'atendimento-especializado',
+      label: 'Atendimento especializado',
+      description:
+        'Suporte técnico consultivo, manutenção e auditorias para diferentes demandas industriais.',
+      icon: 'headset',
+      photo: {
+        src: atendimento,
+        alt: 'Técnico da COAIR trabalhando em um compressor de ar industrial',
+      },
     },
     {
-      id: 'marcenarias',
-      label: 'Marcenarias',
-      description: 'Ar para pistolas de pintura, grampeadores e ferramentas de acabamento.',
+      id: 'operacao-sem-paradas',
+      label: 'Operação sem paradas',
+      description:
+        'Locação, rebuild e reposição estratégica para manter sua produtividade em movimento.',
       icon: 'wrench',
-      photo: { src: app4, alt: 'Sala de compressores com reservatórios azuis e tubulação de ar' },
+      photo: {
+        src: operacao,
+        alt: 'Peças, filtros e lubrificantes para compressores com equipe técnica ao fundo',
+      },
     },
   ],
 } as const satisfies {

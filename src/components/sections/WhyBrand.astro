@@ -12,12 +12,15 @@ import Icon from '@components/Icon.astro'
 import Button from '@components/Button.astro'
 import Eyebrow from '@components/Eyebrow.astro'
 import type { SectionProps } from '@lib/layout'
+import type { Photo } from '@data/types'
 import { cta } from '@data/content'
 import { why } from '@data/sections/diferenciais'
 
 type Props = SectionProps
 
 const { tone, rhythm } = Astro.props
+// Tipo largo de propósito: com `person: null` nos dados, o `as const` estreitaria para `null`.
+const person = why.person as Photo | null
 ---
 
 <Section id="diferenciais" tone={tone} rhythm={rhythm} container={false} class="relative">
@@ -30,13 +33,13 @@ const { tone, rhythm } = Astro.props
       <Picture
         src={why.scene.src}
         alt={why.scene.alt}
-        widths={[640, 1024, 1672]}
+        widths={[640, 1024, 1600]}
         sizes="(min-width: 1024px) 82vw, 100vw"
         formats={['avif', 'webp']}
         fallbackFormat="webp"
         loading="lazy"
         decoding="async"
-        class="absolute inset-0 h-full w-full object-cover object-[100%_50%]"
+        class="absolute inset-0 h-full w-full object-cover object-[75%_50%]"
         pictureAttributes={{ class: 'absolute inset-0 h-full w-full' }}
       />
       <span
@@ -54,9 +57,9 @@ const { tone, rhythm } = Astro.props
         aria-hidden="true"
         class="pointer-events-none absolute top-5 left-6 hidden size-[18px] border-t-2 border-l-2 border-accent-orange opacity-90 lg:top-8 lg:left-10 lg:block"
       ></span>
-      <div class="max-w-xl lg:max-w-[46%]">
+      <div class="max-w-xl lg:max-w-[48%]">
         <Eyebrow tone="light">{why.eyebrow}</Eyebrow>
-        <h2 class="mt-3 font-display text-3xl leading-[1.1] font-extrabold text-neutral-light sm:text-4xl xl:text-[44px]">
+        <h2 class="mt-3 font-display text-[28px] leading-[1.12] font-extrabold text-neutral-light sm:text-[34px] xl:text-[38px]">
           {why.titleLines.map((line, i) => (
             <>
               {i > 0 && <br />}
@@ -81,18 +84,20 @@ const { tone, rhythm } = Astro.props
       </div>
     </div>
 
-    <div class="why-people" aria-hidden="true">
-      <Image
-        src={why.person.src}
-        alt={why.person.alt}
-        format="webp"
-        widths={[480, 760, 1145]}
-        sizes="(min-width: 1024px) 480px, 90vw"
-        loading="lazy"
-        decoding="async"
-        class="why-person"
-      />
-    </div>
+    {person && (
+      <div class="why-people" aria-hidden="true">
+        <Image
+          src={person.src}
+          alt={person.alt}
+          format="webp"
+          widths={[480, 760, 1145]}
+          sizes="(min-width: 1024px) 480px, 90vw"
+          loading="lazy"
+          decoding="async"
+          class="why-person"
+        />
+      </div>
+    )}
   </div>
 
   {/* Cards sobrepostos à base do bloco navy */}

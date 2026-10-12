@@ -79,17 +79,19 @@ Componentes `SupportPanel`, `ApplicationsGallery` e `WhyBrand` mantidos na vers�
 
 ## Pendências para o cliente
 
-| Item                                      | Status    | Observação                                                                                 |
-| ----------------------------------------- | --------- | ------------------------------------------------------------------------------------------ |
-| Fotos das 3 linhas (`src/assets/linhas/`) | pendência | hoje provisórias (compressor COAIR genérico); trocar por XFLOW CA30, Heavy Duty e HD75 VSD |
-| Fotos das 4 aplicações                    | pendência | hoje provisórias (compressor/sala de compressores); 1200×900 de cada contexto              |
-| Frases das 4 aplicações                   | inferido  | confirmar com o cliente                                                                    |
-| 6 dados do dimensionamento                | inferido  | confirmar com o comercial                                                                  |
-| Faixa de potência do VSD                  | ausente   | card mostra só "Velocidade variável · Eficiência energética · Ajuste à demanda de ar"      |
-| VSD: linha própria ou versão Heavy Duty   | inferido  | tratada como linha própria (grupo próprio na campanha)                                     |
-| Frase de autoridade                       | inferido  | "Ar contínuo para a sua produção." (candidata 2; a 1 encosta na Chicago Pneumatic)         |
-| Domínio final e política de privacidade   | pendência |                                                                                            |
-| Banner, logo, cenário e pessoa            | herdado   | da LP Locação; banner com compressor COAIR serve a esta LP                                 |
+| Item                                       | Status     | Observação                                                                                                                                       |
+| ------------------------------------------ | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Fotos das 3 linhas (`src/assets/linhas/`)  | confirmado | XFLOW CA7.5, Heavy Duty HD75 e VSD aberto (enviadas pelo cliente em 10/10/2026); fundo branco, não recortadas                                    |
+| Módulo institucional (seção de aplicações) | confirmado | a pedido do cliente: "Por que escolher as soluções da COAIR?", textos e fotos do modelo enviado                                                  |
+| Foto "Atendimento especializado"           | pendência  | recortada do print do modelo (baixa resolução); pedir o arquivo original                                                                         |
+| Módulo Tecnologia VSD                      | confirmado | texto do slide do cliente, dentro da seção de linhas. "+42%" fora: claim proibido até haver comprovação                                          |
+| Título dos diferenciais                    | confirmado | "Compressores de parafuso de alta tecnologia com o melhor custo-benefício do mercado." — pedido do cliente; superlativo sem comprovação, validar |
+| Hero                                       | confirmado | subtítulo do cliente; ponto "Projeto próprio" trocado por "3 anos de garantia" (condicionante segue nos diferenciais)                            |
+| WhatsApp                                   | confirmado | botões removidos; espaço vazio `data-whatsapp-slot` na cotação para o plugin                                                                     |
+| 6 dados do dimensionamento                 | inferido   | confirmar com o comercial                                                                                                                        |
+| Faixa de potência do VSD                   | ausente    | card mostra só "Velocidade variável · Eficiência energética · Ajuste à demanda de ar"                                                            |
+| Domínio final e política de privacidade    | pendência  |                                                                                                                                                  |
+| Banner e logo                              | herdado    | da LP Locação; banner com compressor COAIR serve a esta LP                                                                                       |
 
 ## Aprovação
 
