@@ -23,6 +23,10 @@ type Props = SectionProps
 const { tone, rhythm } = Astro.props
 const lines = productLines.items
 const tech = productLines.technology
+
+// Curva do gráfico VSD: a mesma geometria serve ao traço, à área sob ele e ao pulso.
+const vsdCurve =
+  'M30 225 C 75 160, 120 150, 150 160 S 210 140, 250 100 S 320 20, 350 50 S 400 270, 450 280 S 500 220, 515 190 S 520 172, 535 172'
 ---
 
 {/* COAIR: respiro único entre seções (global.css) no lugar do ritmo da composição. O vão
@@ -194,31 +198,74 @@ const tech = productLines.technology
         </Button>
       </div>
 
-      {/* Curva ilustrativa do uso do motor acompanhando a demanda (sem escala nem números) */}
-      <figure class="m-0">
+      {/* Curva ilustrativa do uso do motor acompanhando a demanda (sem escala nem números).
+          Animada ao entrar na tela: a curva se desenha, os pontos surgem e um pulso de luz a
+          percorre em loop (o motor acompanhando a demanda). Sem JS ou com movimento
+          reduzido, fica estática e já desenhada. */}
+      <figure class="vsd-chart m-0" data-vsd-chart>
         <svg
           viewBox="0 0 560 300"
           role="img"
           aria-label="Curva ilustrativa da potência do motor acompanhando a variação da demanda de ar"
-          class="h-auto w-full"
+          class="h-auto w-full overflow-visible"
         >
-          <g stroke="currentColor" stroke-dasharray="6 7" class="text-primary-dark/20">
+          <defs>
+            <linearGradient id="vsd-area-fill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="var(--color-brand-green)" stop-opacity="0.16"></stop>
+              <stop offset="100%" stop-color="var(--color-brand-green)" stop-opacity="0"></stop>
+            </linearGradient>
+          </defs>
+          <g stroke="currentColor" stroke-dasharray="6 7" class="vsd-grid text-primary-dark/20">
             <line x1="0" y1="20" x2="560" y2="20"></line>
             <line x1="0" y1="95" x2="560" y2="95"></line>
             <line x1="0" y1="170" x2="560" y2="170"></line>
             <line x1="0" y1="245" x2="560" y2="245"></line>
           </g>
           <path
-            d="M30 225 C 75 160, 120 150, 150 160 S 210 140, 250 100 S 320 20, 350 50 S 400 270, 450 280 S 500 220, 515 190 S 520 172, 535 172"
+            class="vsd-area"
+            d={`${vsdCurve} L535 300 L30 300 Z`}
+            fill="url(#vsd-area-fill)"
+          ></path>
+          <path
+            class="vsd-line"
+            d={vsdCurve}
+            pathLength="1"
             fill="none"
             stroke="var(--color-brand-green-deep)"
             stroke-width="3.5"
             stroke-linecap="round"
           ></path>
-          <circle cx="30" cy="225" r="20" fill="var(--color-brand-green)" opacity="0.22"></circle>
-          <circle cx="30" cy="225" r="7" fill="var(--color-brand-green-deep)"></circle>
-          <circle cx="535" cy="172" r="20" fill="var(--color-primary-dark)" opacity="0.18"></circle>
-          <circle cx="535" cy="172" r="7" fill="var(--color-primary-dark)"></circle>
+          <path
+            class="vsd-pulse"
+            d={vsdCurve}
+            pathLength="1"
+            fill="none"
+            stroke="var(--color-brand-green)"
+            stroke-width="6"
+            stroke-linecap="round"
+          ></path>
+          <g class="vsd-dot vsd-dot-start">
+            <circle
+              class="vsd-halo"
+              cx="30"
+              cy="225"
+              r="20"
+              fill="var(--color-brand-green)"
+              opacity="0.22"
+            ></circle>
+            <circle cx="30" cy="225" r="7" fill="var(--color-brand-green-deep)"></circle>
+          </g>
+          <g class="vsd-dot vsd-dot-end">
+            <circle
+              class="vsd-halo"
+              cx="535"
+              cy="172"
+              r="20"
+              fill="var(--color-primary-dark)"
+              opacity="0.18"
+            ></circle>
+            <circle cx="535" cy="172" r="7" fill="var(--color-primary-dark)"></circle>
+          </g>
         </svg>
         <figcaption class="mt-3 font-sans text-[13px] font-semibold text-ink-soft">
           {tech.chartLabel}
@@ -252,6 +299,95 @@ const tech = productLines.technology
     transform: translate(0, 0);
   }
 
+  /* Gráfico VSD -------------------------------------------------------------
+     O pulso só aparece animado. O estado inicial (curva por desenhar, pontos recolhidos)
+     só vale com `data-animate`, que o script põe quando há JS e movimento liberado.
+     Pulso: trecho de 7% da curva com um vão maior que ela, para entre uma volta e outra
+     ele sumir por um instante em vez de emendar. Começa e termina fora da curva. */
+  .vsd-pulse {
+    opacity: 0;
+    stroke-dasharray: 0.07 1.5;
+    stroke-dashoffset: 0.08;
+    filter: drop-shadow(0 0 5px rgb(63 220 90 / 0.9));
+  }
+
+  .vsd-dot,
+  .vsd-halo {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .vsd-chart[data-animate] .vsd-grid,
+  .vsd-chart[data-animate] .vsd-area {
+    opacity: 0;
+  }
+  .vsd-chart[data-animate] .vsd-line {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+  .vsd-chart[data-animate] .vsd-dot {
+    transform: scale(0);
+  }
+
+  /* 1. grade e ponto inicial · 2. a curva se desenha · 3. área e ponto final ·
+     4. pulso percorrendo a curva e halos respirando, em loop */
+  .vsd-chart.is-visible .vsd-grid {
+    animation: vsd-fade 0.5s ease-out forwards;
+  }
+  .vsd-chart.is-visible .vsd-dot-start {
+    animation: vsd-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards;
+  }
+  .vsd-chart.is-visible .vsd-line {
+    animation: vsd-draw 1.8s cubic-bezier(0.65, 0, 0.35, 1) 0.3s forwards;
+  }
+  .vsd-chart.is-visible .vsd-area {
+    animation: vsd-fade 0.8s ease-out 1.6s forwards;
+  }
+  .vsd-chart.is-visible .vsd-dot-end {
+    animation: vsd-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 2s forwards;
+  }
+  .vsd-chart.is-visible .vsd-pulse {
+    opacity: 1;
+    animation: vsd-run 3.2s linear 2.5s infinite;
+  }
+  .vsd-chart.is-visible .vsd-dot-start .vsd-halo {
+    animation: vsd-breathe 2.8s ease-in-out 2.5s infinite;
+  }
+  .vsd-chart.is-visible .vsd-dot-end .vsd-halo {
+    animation: vsd-breathe 2.8s ease-in-out 3.9s infinite;
+  }
+
+  @keyframes vsd-fade {
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes vsd-draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes vsd-pop {
+    to {
+      transform: scale(1);
+    }
+  }
+  /* Uma volta = dash + vão (1.57): o estado final repete o inicial e o loop não salta. */
+  @keyframes vsd-run {
+    to {
+      stroke-dashoffset: -1.49;
+    }
+  }
+  @keyframes vsd-breathe {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.35);
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .product-card,
     .product-card img,
@@ -263,3 +399,22 @@ const tech = productLines.technology
     }
   }
 </style>
+
+<script>
+  // Gráfico VSD: anima uma vez, quando entra na tela. Sem IntersectionObserver ou com
+  // movimento reduzido, não arma nada e o gráfico fica estático, já desenhado.
+  const chart = document.querySelector<HTMLElement>('[data-vsd-chart]')
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  if (chart && !reduce && 'IntersectionObserver' in window) {
+    chart.toggleAttribute('data-animate', true)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return
+        chart.classList.add('is-visible')
+        observer.disconnect()
+      },
+      { threshold: 0.4 },
+    )
+    observer.observe(chart)
+  }
+</script>
