@@ -25,12 +25,19 @@ const lines = productLines.items
 const tech = productLines.technology
 ---
 
-<Section id="linhas" tone={tone} rhythm={rhythm}>
+{/* COAIR: respiro único entre seções (global.css) no lugar do ritmo da composição. O vão
+    até o painel do identificar fica metade aqui, metade lá. */}
+<Section
+  id="linhas"
+  tone={tone}
+  rhythm={rhythm}
+  class="pt-(--section-gap)! pb-[calc(var(--section-gap)/2)]!"
+>
   <SectionHeader
     eyebrow={productLines.eyebrow}
     title={productLines.title}
     text={productLines.text}
-    width="2xl"
+    width="full"
     accent="green"
     shape="dash"
   />

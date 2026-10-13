@@ -3,8 +3,9 @@
  * Galeria de aplicações — fase "prova" da biblioteca B2, no visual COAIR.
  *
  * Fundo industrial escuro em largura total, cabeçalho centrado e 4 cards-botão: a foto
- * se dissolve no rodapé escuro do card, onde ficam o ícone verde, o título, o texto e a
- * seta. O card inteiro é o CTA, por isso o `<button>` envolve a foto e o texto.
+ * se dissolve no rodapé escuro do card, onde ficam o ícone verde, o título e a seta numa
+ * linha e o texto embaixo. O card inteiro é o CTA, por isso o `<button>` envolve a foto e
+ * o texto.
  */
 import { Image } from 'astro:assets'
 import Section from '@components/Section.astro'
@@ -23,21 +24,19 @@ const { tone, rhythm } = Astro.props
   tone={tone}
   rhythm={rhythm}
   container={false}
-  class="relative isolate overflow-hidden"
+  class="relative isolate overflow-hidden py-(--section-gap)!"
 >
-  <div
-    aria-hidden="true"
-    class="apps-bg pointer-events-none absolute inset-0 -z-10 rounded-3xl lg:rounded-[40px]"
-  ></div>
+  {/* COAIR: bloco navy com o respiro único entre seções (global.css) da borda ao conteúdo,
+      em cima e embaixo, no lugar do ritmo da composição */}
+  <div aria-hidden="true" class="apps-bg pointer-events-none absolute inset-0 -z-10"></div>
 
-  {/* Mais largo que o contêiner padrão, como no layout de referência */}
-  <div class="mx-auto max-w-[1760px] px-6 pt-8 pb-4 lg:px-12 2xl:px-20">
+  <div class="mx-auto max-w-page px-6 lg:px-10">
     <SectionHeader
       eyebrow={applications.eyebrow}
       title={applications.title}
       text={applications.text}
       align="center"
-      width="4xl"
+      width="full"
       tone="light"
       accent="green"
     />
@@ -63,23 +62,23 @@ const { tone, rhythm } = Astro.props
               <span aria-hidden="true" class="app-fade pointer-events-none absolute inset-0" />
             </div>
 
-            {/* Rodapé do card: sobe sobre a base da foto */}
-            <div class="relative -mt-6 flex flex-1 gap-4 pr-5 pb-6 pl-[22px]">
-              <span class="flex size-[52px] shrink-0 items-center justify-center rounded-md bg-brand-green text-neutral-light shadow-[0_10px_24px_-10px_rgb(63_220_90/0.7)]">
-                <Icon name={app.icon} class="size-[30px]" />
-              </span>
-              <span class="flex min-w-0 flex-1 flex-col">
-                <span class="flex min-h-[52px] items-center font-display text-lg leading-tight font-extrabold text-neutral-light">
+            {/* Rodapé do card, subindo sobre a base da foto: ícone, título e seta numa linha;
+                a descrição embaixo, na largura do card */}
+            <div class="relative -mt-6 flex flex-1 flex-col gap-3 px-5 pb-5">
+              <span class="flex items-center gap-3.5">
+                <span class="flex size-11 shrink-0 items-center justify-center rounded-md bg-brand-green text-neutral-light shadow-[0_10px_24px_-10px_rgb(63_220_90/0.7)]">
+                  <Icon name={app.icon} class="size-6" />
+                </span>
+                <span class="min-w-0 flex-1 font-display text-lg leading-tight font-extrabold text-neutral-light">
                   {app.label}
                 </span>
-                <span class="mt-1 flex items-center justify-between gap-2">
-                  <span class="font-sans text-[13px] leading-relaxed text-[#b4c6d9]">
-                    {app.description}
-                  </span>
-                  <span class="flex size-[46px] shrink-0 items-center justify-center rounded-full border-[1.5px] border-[#b2c3dc]/75 text-neutral-light transition-[background-color,border-color,color,transform] duration-300 group-hover:translate-x-0.5 group-hover:border-brand-green group-hover:bg-brand-green group-hover:text-primary-dark-900">
-                    <Icon name="arrow-right" class="size-[18px]" />
-                  </span>
+                <span class="flex size-10 shrink-0 items-center justify-center rounded-full border-[1.5px] border-[#b2c3dc]/75 text-neutral-light transition-[background-color,border-color,color,transform] duration-300 group-hover:translate-x-0.5 group-hover:border-brand-green group-hover:bg-brand-green group-hover:text-primary-dark-900">
+                  <Icon name="arrow-right" class="size-4" />
                 </span>
+              </span>
+              {/* Até 38ch: a descrição fica em 2 linhas mesmo nos cards largos (2 colunas) */}
+              <span class="block max-w-[38ch] font-sans text-[13px] leading-relaxed text-[#b4c6d9]">
+                {app.description}
               </span>
             </div>
           </button>

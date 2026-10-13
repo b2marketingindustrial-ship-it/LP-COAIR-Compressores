@@ -21,7 +21,7 @@ export const site = {
   city: 'Indaiatuba - SP',
   /** Página da empresa no LinkedIn. Vazio esconde o ícone do rodapé. */
   linkedin: '',
-  /** Link da política de privacidade do cliente (entrada 10). Vazio esconde o link, mas a nota de LGPD continua. */
+  /** Link da política de privacidade do cliente (entrada 10). Sem uso na página desde 13/10/2026: o link ficava na nota de LGPD da cotação, removida como nas LPs de Locação e Manutenção. */
   privacyUrl: '',
   /** Versão do padrão B2 que esta LP segue. Não editar manualmente; vem do template. */
   standardVersion: '2.7.1',

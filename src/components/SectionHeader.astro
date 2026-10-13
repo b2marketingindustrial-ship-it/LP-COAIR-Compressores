@@ -16,8 +16,8 @@ interface Props {
   text?: string
   /** `center` só em galerias simétricas (GUIA-LAYOUT, item 1). */
   align?: 'left' | 'center'
-  /** Largura do texto: 1 frase → `xl`, 2 frases → `2xl`, centrado → `4xl`. */
-  width?: 'xl' | '2xl' | '4xl'
+  /** Largura do texto: 1 frase → `xl`, 2 frases → `2xl`, centrado → `4xl`, sem limite → `full`. */
+  width?: 'xl' | '2xl' | '4xl' | 'full'
   /** `light` = texto sobre navy. */
   tone?: 'dark' | 'light'
   /** Cor do marcador do eyebrow: laranja do padrão ou verde COAIR. */
@@ -42,7 +42,12 @@ const {
   class: className = '',
 } = Astro.props
 
-const widths = { xl: 'max-w-xl', '2xl': 'max-w-2xl', '4xl': 'max-w-4xl' }
+const widths = { xl: 'max-w-xl', '2xl': 'max-w-2xl', '4xl': 'max-w-4xl', full: 'max-w-none' }
+
+// `\n` no título ou no texto marca uma quebra de linha que só vale no desktop (lg+);
+// abaixo disso o texto quebra sozinho, com um espaço no lugar. Cada trecho vira um bloco,
+// e não um <br>, porque o navegador desliga o `text-wrap: balance` em texto com <br>.
+const lines = (value: string) => value.split('\n')
 const alignClass = align === 'center' ? 'mx-auto text-center' : ''
 const titleColor = tone === 'light' ? 'text-neutral-light' : 'text-ink'
 const textColor = tone === 'light' ? 'text-neutral-light/75' : 'text-ink-soft'
@@ -56,7 +61,12 @@ const textColor = tone === 'light' ? 'text-neutral-light/75' : 'text-ink-soft'
   <h2
     class:list={['mt-3 font-display text-3xl leading-tight font-extrabold sm:text-4xl', titleColor]}
   >
-    {title}
+    {lines(title).map((line, i) => (
+      <>
+        {i > 0 && ' '}
+        <span class="lg:block">{line}</span>
+      </>
+    ))}
   </h2>
 
   {rule && (
@@ -68,7 +78,12 @@ const textColor = tone === 'light' ? 'text-neutral-light/75' : 'text-ink-soft'
 
   {text && (
     <p class:list={['font-sans text-[15px] leading-relaxed', rule ? 'mt-5' : 'mt-3', textColor]}>
-      {text}
+      {lines(text).map((line, i) => (
+        <>
+          {i > 0 && ' '}
+          <span class="lg:block">{line}</span>
+        </>
+      ))}
     </p>
   )}
 </div>

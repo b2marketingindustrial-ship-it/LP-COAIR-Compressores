@@ -51,7 +51,7 @@ const hasHighlight = titleRest.length > 0
 
   {/* z4 — mira técnica */}
   <svg
-    class="pointer-events-none absolute top-6 left-6 z-[4] size-4 text-white/50"
+    class="pointer-events-none absolute top-[calc(var(--header-h)+1.5rem)] left-6 z-[4] size-4 text-white/50"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -63,7 +63,7 @@ const hasHighlight = titleRest.length > 0
   </svg>
 
   {/* z5 — conteúdo */}
-  <div class="relative z-[5] mx-auto max-w-page px-6 py-20 lg:px-10 lg:py-24">
+  <div class="relative z-[5] mx-auto max-w-page px-6 pt-[calc(var(--header-h)+3rem)] pb-20 lg:px-10 lg:pt-[calc(var(--header-h)+4rem)] lg:pb-24">
     <div class="hero-grid grid items-center gap-y-12 lg:gap-x-6">
       {/* Coluna 1 — textos */}
       <div class="max-w-xl lg:max-w-none">
@@ -204,7 +204,7 @@ const hasHighlight = titleRest.length > 0
     }
   }
 
-  /* Metade da largura da página (1320px / 2): ancora as colunas e a foto no mesmo eixo. */
+  /* Metade da largura da página (--container-page / 2): ancora as colunas e a foto no mesmo eixo. */
   .hero-photo,
   .hero-navy,
   .hero-navy-right,
@@ -212,6 +212,8 @@ const hasHighlight = titleRest.length > 0
   .hero-grid {
     --page-half: calc(var(--container-page) / 2);
     --page-edge: max(0px, calc(50% - var(--page-half)));
+    /* Desvio da borda do conteúdo em relação ao contêiner de 1320px dos véus: 0 até 1320, 55px a partir de 1430. */
+    --page-shift: max(0px, min(var(--page-half), 50%) - 660px);
   }
 
   .hero-navy {
@@ -240,7 +242,7 @@ const hasHighlight = titleRest.length > 0
 
     /* Navy sólido sob a coluna 1, dissolvendo antes da janela. */
     .hero-navy {
-      width: calc(50% - 20px);
+      width: calc(50% - 20px + var(--page-shift));
       background:
         radial-gradient(900px 520px at 10% -10%, rgb(255 255 255 / 0.1) 0%, transparent 55%),
         linear-gradient(
@@ -254,7 +256,7 @@ const hasHighlight = titleRest.length > 0
 
     /* Navy da direita: cobre a coluna do shortcode e fecha a margem da página. */
     .hero-navy-right {
-      width: calc(50% - 261px);
+      width: calc(50% - 261px - var(--page-shift));
       background: linear-gradient(
         to right,
         transparent 0px,
@@ -264,7 +266,7 @@ const hasHighlight = titleRest.length > 0
     }
 
     .hero-dots {
-      width: calc(50% - 60px);
+      width: calc(50% - 60px + var(--page-shift));
     }
   }
 </style>

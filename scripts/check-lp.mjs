@@ -176,7 +176,10 @@ for (const f of astroFiles) {
 /* A8. Estrutura fixa: assinaturas do Header, Hero, Cotação e Footer ---------- */
 {
   const expect = {
-    'Header.astro': ['sticky top-0 z-50', '-mt-3 -mb-10', 'rounded-b-xl', 'data-cta="header-cta"'],
+    // COAIR: header no visual do cliente (fixo e translúcido sobre o hero, sem a placa da
+    // logo), o mesmo das LPs de Locação e Manutenção. A assinatura passa a ser a deste
+    // header; o CTA rastreável continua obrigatório.
+    'Header.astro': ['fixed inset-x-0 top-0 z-50', 'data-header', 'data-cta="header-cta"'],
     'Hero.astro': [
       'grid-template-columns: minmax(0, 1fr) 270px 300px',
       'right: var(--page-edge)',
@@ -207,7 +210,9 @@ for (const f of astroFiles) {
       fail(f, 'arquivo da estrutura fixa não existe')
       continue
     }
-    for (const n of needles) if (!s.includes(n)) fail(f, `estrutura fixa alterada: falta "${n}"`)
+    // COAIR: um CTA da estrutura fixa pode vir do <Button cta="…">, que renderiza o data-cta.
+    const has = (n) => s.includes(n) || (n.startsWith('data-cta="') && s.includes(` ${n.slice(5)}`))
+    for (const n of needles) if (!has(n)) fail(f, `estrutura fixa alterada: falta "${n}"`)
   }
 
   // A seção de Cotação é a única que pode trazer o ritmo de fechamento embutido.

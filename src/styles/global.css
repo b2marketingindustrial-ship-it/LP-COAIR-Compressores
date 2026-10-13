@@ -4,6 +4,51 @@
    Tokens do padrão B2 (PROMPT-PADRAO-LP, item 2).
    Só altere os valores se a entrevista (entrada 21) trouxer cores/fonte do cliente.
    --------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------
+   Fonte provisória com as medidas da Manrope (Arial no Windows/Mac, Liberation Sans
+   no Linux). Enquanto a Manrope do Google Fonts não chega, o texto já ocupa o mesmo
+   espaço: a troca não muda as quebras de linha nem empurra a página (CLS).
+   A largura da Arial varia com o peso, por isso há um ajuste por faixa de peso.
+   --------------------------------------------------------------------------- */
+@font-face {
+  font-family: 'Manrope Fallback';
+  font-weight: 100 549;
+  src:
+    local('Arial'), local('ArialMT'), local('Liberation Sans'), local('LiberationSans'),
+    local('Helvetica');
+  size-adjust: 102.8%;
+  ascent-override: 104.09%;
+  descent-override: 29.18%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Manrope Fallback';
+  font-weight: 550 749;
+  src:
+    local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'),
+    local('LiberationSans-Bold'), local('Helvetica Bold');
+  size-adjust: 99%;
+  ascent-override: 108.08%;
+  descent-override: 30.3%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Manrope Fallback';
+  font-weight: 750 1000;
+  src:
+    local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'),
+    local('LiberationSans-Bold'), local('Helvetica Bold');
+  /* COAIR (13/10/2026): os mesmos valores da LP de Manutenção, medidos no Lighthouse com
+     CLS 0. Sem eles o texto 800 (H1 e títulos) muda de largura na troca de fonte, o H1
+     ganha uma linha e empurra a página. */
+  size-adjust: 102.4%;
+  ascent-override: 104.49%;
+  descent-override: 29.3%;
+  line-gap-override: 0%;
+}
+
 @theme {
   --color-primary-dark: #002147;
   --color-primary-dark-800: #003669;
@@ -22,22 +67,29 @@
   /* Verde-água do contorno do botão do header. */
   --color-brand-teal: #1ef3da;
 
-  --container-page: 1320px;
+  /* COAIR: 1350px úteis + 40px de gutter de cada lado (o padrão B2 é 1320px, 1240 úteis),
+     igual à LP de Manutenção. */
+  --container-page: 1430px;
 
   /* Uma única família para títulos e corpo; o peso e o tracking fazem a hierarquia. */
-  --font-display: 'Manrope', ui-sans-serif, system-ui, sans-serif;
-  --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Manrope', 'Manrope Fallback', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Manrope', 'Manrope Fallback', ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
-/* Altura do header fixo: o hero passa por baixo dele e as âncoras param logo abaixo. */
+/* Altura do header fixo: o hero passa por baixo dele e as âncoras param logo abaixo.
+   COAIR (13/10/2026): `--section-gap` é o respiro único entre seções — o mesmo vão do
+   conteúdo de uma seção ao da seguinte, e da borda de um bloco escuro (hero, galeria,
+   diferenciais, footer) ao conteúdo dele. Substitui os ritmos do padrão na página. */
 :root {
   --header-h: 4rem;
+  --section-gap: 4rem;
 }
 
 @media (width >= 64rem) {
   :root {
     --header-h: 72px;
+    --section-gap: 5rem;
   }
 }
 
@@ -53,6 +105,29 @@
 
   .font-display {
     letter-spacing: -0.015em;
+  }
+
+  /* Sem palavra órfã: títulos com linhas equilibradas, textos sem uma palavra sozinha na
+     última linha. Onde o navegador não suporta, a quebra continua a normal. */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p,
+  figcaption,
+  blockquote {
+    text-wrap: pretty;
+  }
+
+  /* Dentro dos cards (li e article), tudo equilibrado: as descrições curtas saem com as
+     linhas do mesmo tamanho, sem rabo curto como "e outras." na última. */
+  li,
+  li p,
+  article,
+  article p {
+    text-wrap: balance;
   }
 
   ::selection {

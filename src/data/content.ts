@@ -86,14 +86,11 @@ export const quote = {
     { icon: 'users', label: 'Equipe técnica\ninterna' },
     { icon: 'clock', label: 'Atendimento\nágil' },
   ],
-  /** Nota de LGPD exibida abaixo do formulário. */
-  lgpd: `Seus dados são usados apenas para responder à sua solicitação de cotação, conforme a LGPD.`,
 } as const satisfies {
   eyebrow: string
   title: string
   text: string
   trust: readonly [TrustItem, TrustItem, TrustItem]
-  lgpd: string
 }
 
 /* ------------------------------------------------------------------ footer */
@@ -102,8 +99,8 @@ export const footer = {
   /** Frase da marca ao lado da logo. */
   tagline:
     'Compressores de parafuso XFLOW CAR, Heavy Duty e VSD, com projeto próprio e venda nacional',
+  /** Nome acessível do bloco de contatos (não aparece na tela). */
   contactLabel: 'Atendimento',
-  quoteLabel: 'Solicite sua cotação',
   quoteButton: 'Solicitar cotação',
   credit: { label: 'B2 Marketing Industrial', url: 'https://b2marketingindustrial.com.br' },
 } as const

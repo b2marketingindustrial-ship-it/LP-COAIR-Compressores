@@ -25,15 +25,23 @@ const titleAfter = titleRest.join(supportPanel.highlight)
 const hasHighlight = titleRest.length > 0
 ---
 
-<Section id="identificar" tone={tone} rhythm={rhythm} container={false} class="relative isolate">
+{/* COAIR: respiro único entre seções (global.css) no lugar do ritmo da composição: metade
+    do vão em cima (a outra metade vem das linhas) e o vão inteiro antes da galeria navy. */}
+<Section
+  id="identificar"
+  tone={tone}
+  rhythm={rhythm}
+  container={false}
+  class="relative isolate pt-[calc(var(--section-gap)/2)]! pb-(--section-gap)!"
+>
   {/* Visual COAIR: o cinza-claro da vitrine continua por trás do painel */}
   <div
     aria-hidden="true"
     class="pointer-events-none absolute inset-0 -z-10 bg-neutral-gray-100"
   ></div>
 
-  {/* Um pouco mais largo que a grade de produtos, como no layout de referência */}
-  <div class="mx-auto max-w-[1212px] px-6 lg:px-10">
+  {/* Na largura da página, como as outras seções (1350px úteis) */}
+  <div class="mx-auto max-w-page px-6 lg:px-10">
     <div class="support-panel navy-premium relative overflow-hidden rounded-2xl border border-white/10 p-6 shadow-[0_24px_48px_-30px_rgba(0,24,48,0.7)] sm:p-8 lg:px-8 lg:py-8">
       {/* Desenho técnico de compressor, bem apagado, atrás do CTA */}
       <svg
@@ -80,8 +88,10 @@ const hasHighlight = titleRest.length > 0
             </p>
           </div>
 
-          <div class="flex flex-col items-stretch gap-3 lg:shrink-0 lg:items-center">
-            <Button cta="identificar-cta" variant="brand-glow" class="w-full lg:w-auto">
+          <div class="flex flex-col items-start gap-3 lg:shrink-0 lg:items-center">
+            {/* Respiro lateral menor no celular: com o da pílula (32px) o rótulo passava
+                1px da coluna em 360px e quebrava em duas linhas */}
+            <Button cta="identificar-cta" variant="brand" class="max-sm:px-6">
               {cta.secondary}
             </Button>
             <span class="flex items-center justify-center gap-2 font-sans text-[13px] text-neutral-light/85">

@@ -7,9 +7,9 @@
  * feixe de linhas finas e desenho técnico à direita; destaques com ícone em quadradinho menta.
  */
 import Icon from './Icon.astro'
+import Button from './Button.astro'
 import Eyebrow from './Eyebrow.astro'
-import { quote } from '../data/content'
-import { site } from '../data/site'
+import { hero, quote } from '../data/content'
 
 const isDev = import.meta.env.DEV
 
@@ -24,7 +24,11 @@ const bottomWaves = Array.from({ length: 14 }, (_, i) => {
 })
 ---
 
-<section id="cotacao" class="relative isolate overflow-hidden bg-neutral-gray-100 pt-8 pb-20">
+{/* COAIR: respiro único entre seções (global.css) em cima e embaixo, no lugar do pt-8 pb-20 */}
+<section
+  id="cotacao"
+  class="relative isolate overflow-hidden bg-neutral-gray-100 py-(--section-gap)"
+>
   {/* Decoração do fundo: linhas finas verde-água e desenho técnico apagado, à direita */}
   <svg
     aria-hidden="true"
@@ -70,7 +74,8 @@ const bottomWaves = Array.from({ length: 14 }, (_, i) => {
   <div class="mx-auto max-w-page px-6 lg:px-10">
     <div class="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:items-center lg:gap-16">
       {/* Coluna do formulário */}
-      <div class="order-2 w-full lg:order-1">
+      {/* Assinatura da estrutura fixa separada do alinhamento à esquerda, para o check:lp achá-la inteira */}
+      <div class:list={['order-2 w-full lg:order-1', 'text-left lg:justify-self-start']}>
         {/* O shortcode do WordPress desenha o formulário aqui. Em desenvolvimento o texto
             do shortcode fica oculto, para o espaço aparecer vazio como no layout. */}
         <div class:list={['min-h-[380px] w-full', isDev && 'invisible']}>
@@ -104,25 +109,7 @@ const bottomWaves = Array.from({ length: 14 }, (_, i) => {
             )}
           </slot>
         </div>
-
-        {/* Nota de LGPD */}
-        <p class="mt-3 font-sans text-[11px] leading-relaxed text-ink-soft/80">
-          {quote.lgpd}
-          {site.privacyUrl && (
-            <>
-              {' '}
-              <a
-                href={site.privacyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="font-semibold text-primary-dark underline-offset-2 hover:underline"
-              >
-                Política de privacidade
-              </a>
-              .
-            </>
-          )}
-        </p>
+        {/* Sem a nota de LGPD abaixo do formulário: removida a pedido em 13/10/2026 */}
       </div>
 
       {/* Coluna de texto */}
@@ -139,12 +126,16 @@ const bottomWaves = Array.from({ length: 14 }, (_, i) => {
           {quote.text}
         </p>
 
-        {/* Espaço reservado para o botão de WhatsApp do plugin (entra depois, no WordPress) */}
-        <div
-          data-cta="cotacao-whatsapp"
-          data-whatsapp-slot
-          class="mt-6 flex min-h-[52px] flex-col gap-3 sm:flex-row sm:items-center"
-        ></div>
+        {/* Os mesmos botões do hero (13/10/2026), no lugar do espaço reservado para o
+            WhatsApp do plugin, como nas LPs de Locação e Manutenção */}
+        <div class="mt-7 flex flex-wrap items-center gap-x-9 gap-y-4">
+          <Button cta="cotacao-primary" variant="brand">
+            {hero.ctaPrimary}
+          </Button>
+          <Button cta="cotacao-whatsapp" variant="link-dark" icon={false}>
+            {hero.ctaSecondary}
+          </Button>
+        </div>
 
         <ul class="mt-7 flex flex-wrap items-center gap-x-5 gap-y-4">
           {quote.trust.map((item) => (

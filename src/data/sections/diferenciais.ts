@@ -24,8 +24,9 @@ export const why = {
   eyebrow: `Por que a ${site.brandShort}`,
   /** Cada item é uma linha do H2 (quebra forçada). */
   titleLines: [
-    'Compressores de parafuso de alta tecnologia',
-    'com o melhor custo‑benefício do mercado.',
+    'Compressores de parafuso',
+    'de alta tecnologia com o melhor',
+    'custo‑benefício do mercado.',
   ],
   text: `Compressores de parafuso com projeto próprio ${site.brandShort}, dimensionados pela engenharia conforme a demanda, a pressão e a vazão da operação. Equipe técnica e laboratório internos, e garantia de 3 anos condicionada às manutenções obrigatórias previstas pela ${site.brandShort}.`,
   scene: {
