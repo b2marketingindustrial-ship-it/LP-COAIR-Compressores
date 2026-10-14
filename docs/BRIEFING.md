@@ -79,19 +79,19 @@ Componentes `SupportPanel`, `ApplicationsGallery` e `WhyBrand` mantidos na vers�
 
 ## Pendências para o cliente
 
-| Item                                       | Status     | Observação                                                                                                                                       |
-| ------------------------------------------ | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Fotos das 3 linhas (`src/assets/linhas/`)  | confirmado | XFLOW CA7.5, Heavy Duty HD75 e VSD aberto (enviadas pelo cliente em 10/10/2026); fundo branco, não recortadas                                    |
-| Módulo institucional (seção de aplicações) | confirmado | a pedido do cliente: "Por que escolher as soluções da COAIR?", textos e fotos do modelo enviado                                                  |
-| Foto "Atendimento especializado"           | pendência  | recortada do print do modelo (baixa resolução); pedir o arquivo original                                                                         |
-| Módulo Tecnologia VSD                      | confirmado | texto do slide do cliente, dentro da seção de linhas. "+42%" fora: claim proibido até haver comprovação                                          |
-| Título dos diferenciais                    | confirmado | "Compressores de parafuso de alta tecnologia com o melhor custo-benefício do mercado." — pedido do cliente; superlativo sem comprovação, validar |
-| Hero                                       | confirmado | subtítulo do cliente; ponto "Projeto próprio" trocado por "3 anos de garantia" (condicionante segue nos diferenciais)                            |
-| WhatsApp                                   | confirmado | botões removidos; o espaço vazio da cotação deu lugar aos botões do hero em 13/10 (ver Ajustes)                                                  |
-| 6 dados do dimensionamento                 | inferido   | confirmar com o comercial                                                                                                                        |
-| Faixa de potência do VSD                   | ausente    | card mostra só "Velocidade variável · Eficiência energética · Ajuste à demanda de ar"                                                            |
-| Domínio final e política de privacidade    | pendência  |                                                                                                                                                  |
-| Banner e logo                              | herdado    | da LP Locação; banner com compressor COAIR serve a esta LP                                                                                       |
+| Item                                       | Status     | Observação                                                                                                                                        |
+| ------------------------------------------ | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Fotos das 3 linhas (`src/assets/linhas/`)  | confirmado | XFLOW CA7.5, Heavy Duty HD75 e VSD aberto (enviadas pelo cliente em 10/10/2026); fundo branco, não recortadas                                     |
+| Módulo institucional (seção de aplicações) | confirmado | a pedido do cliente: "Por que escolher as soluções da COAIR?", textos e fotos do modelo enviado                                                   |
+| Foto "Atendimento especializado"           | pendência  | recortada do print do modelo (baixa resolução); pedir o arquivo original                                                                          |
+| Módulo Tecnologia VSD                      | confirmado | a partir do slide do cliente, dentro da seção de linhas; texto revisado em 14/10 (ver Ajustes). "+42%" fora: claim proibido até haver comprovação |
+| Título dos diferenciais                    | confirmado | "...com excelente relação entre desempenho, eficiência e investimento." — substitui o "melhor custo-benefício do mercado" em 14/10 (ver Ajustes)  |
+| Hero                                       | confirmado | subtítulo do cliente; ponto "Projeto próprio" trocado por "3 anos de garantia" (condicionante segue nos diferenciais)                             |
+| WhatsApp                                   | confirmado | botões removidos; o espaço vazio da cotação deu lugar aos botões do hero em 13/10 (ver Ajustes)                                                   |
+| 6 dados do dimensionamento                 | inferido   | confirmar com o comercial                                                                                                                         |
+| Faixa de potência do VSD                   | ausente    | card mostra só "Velocidade variável · Eficiência energética · Ajuste à demanda de ar"                                                             |
+| Domínio final e política de privacidade    | pendência  |                                                                                                                                                   |
+| Banner e logo                              | herdado    | da LP Locação; banner com compressor COAIR serve a esta LP                                                                                        |
 
 ## Ajustes — 13/10/2026
 
@@ -115,6 +115,18 @@ Mesmas padronizações das LPs de Locação e Manutenção (mesma base), decidid
 | Botão flutuante de WhatsApp       | removido do layout (já não aparecia: o número está vazio)                                                                                                                                                                                 | **desvio:** o padrão mostra o botão quando há WhatsApp                                                                                                    |
 | Botão dos diferenciais no celular | os cards cobriam metade do botão (o texto terminava com 32px e os cards sobem 64px); respiro de baixo do texto em 96px também no celular                                                                                                  | nenhum                                                                                                                                                    |
 | Diferenciais em 3 linhas          | título quebrado em "Compressores de parafuso / de alta tecnologia com o melhor / custo‑benefício do mercado."; coluna de texto de 48% para 52% da página, para o parágrafo caber em 3 linhas (a partir de 1430px; abaixo disso volta a 4) | nenhum                                                                                                                                                    |
+
+## Ajustes — 14/10/2026
+
+Revisão de texto para tirar promessas sem comprovação e corrigir a explicação do VSD.
+
+| Pedido                        | O que foi feito                                                                                                                                                                                             | Desvio do padrão                                  |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| Sem "melhor custo-benefício"  | título dos diferenciais: "Compressores de parafuso / de alta tecnologia, com excelente / relação entre desempenho, / eficiência e investimento." (4 linhas)                                                 | o título passa de 3 para 4 linhas                 |
+| Sem "operação sem paradas"    | card do institucional: "Continuidade operacional", com "Locação, rebuild e reposição estratégica que apoiam a redução de riscos de parada." O `id` antigo segue, para o `data-cta` não mudar                | nenhum                                            |
+| Texto técnico do VSD          | sai "determinando qual compressor irá operar" (papel do controlador central de um sistema com vários compressores, não do inversor). O texto explica o inversor e ganha uma segunda frase sobre a indicação | módulo ganha o campo `note`, um segundo parágrafo |
+| Pontos do VSD                 | "Operação no tempo correto" vira "Menos ciclos de carga e alívio"; "Ajuste à demanda de ar" vira "Produção de ar conforme a demanda"                                                                        | nenhum                                            |
+| Indicação depende da operação | painel "Qual compressor a sua operação pede?" abre com: a indicação depende de pressão, vazão, regime de operação e variação de demanda                                                                     | nenhum                                            |
 
 ## Aprovação
 

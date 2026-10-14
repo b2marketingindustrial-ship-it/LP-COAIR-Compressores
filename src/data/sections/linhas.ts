@@ -9,7 +9,9 @@
  *
  * `technology` é o módulo pedido pelo cliente logo abaixo dos cards, a partir do
  * slide "Tecnologia Velocidade Variável - VSD". O "+42%" do slide fica de fora:
- * é claim proibido pelo briefing até ter comprovação.
+ * é claim proibido pelo briefing até ter comprovação. Texto revisado em 14/10/2026:
+ * o slide dizia que o VSD determina "qual compressor irá operar", o que é papel do
+ * controlador central num sistema com vários compressores, não do inversor.
  */
 import type { Photo } from '@data/types'
 
@@ -69,11 +71,12 @@ export const productLines = {
   technology: {
     eyebrow: 'Tecnologia VSD',
     title: 'Tecnologia de velocidade variável',
-    text: 'Tecnologia responsável pelo controle da velocidade, frequência, tensão e torque do motor elétrico, determinando qual compressor irá operar, no tempo correto, para a demanda de ar requerida.',
+    text: 'O inversor de frequência ajusta a frequência e a tensão do motor elétrico e, com isso, controla velocidade e torque: a produção de ar acompanha a variação da demanda, em vez de alternar entre carga e alívio.',
+    note: 'A indicação do compressor, com ou sem VSD, depende da pressão, da vazão, do regime de operação e da variação de demanda, avaliados pela engenharia da COAIR no dimensionamento.',
     points: [
       'Controle de velocidade e torque',
-      'Operação no tempo correto',
-      'Ajuste à demanda de ar',
+      'Produção de ar conforme a demanda',
+      'Menos ciclos de carga e alívio',
     ],
     chartLabel: 'Potência e uso do motor',
   },
@@ -88,6 +91,7 @@ export const productLines = {
     eyebrow: string
     title: string
     text: string
+    note: string
     points: readonly [string, string, string]
     chartLabel: string
   }

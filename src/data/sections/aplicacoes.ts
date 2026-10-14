@@ -8,6 +8,8 @@
  * institucional — "Por que escolher as soluções da COAIR?" —, com textos e fotos
  * do modelo enviado. A foto de "Atendimento especializado" foi recortada do print
  * do modelo (baixa resolução); trocar pelo arquivo original quando chegar.
+ * "Operação sem paradas" virou "Continuidade operacional" (14/10/2026): promessa de
+ * zero parada não se sustenta. O `id` segue o antigo para não mudar o `data-cta`.
  */
 import type { Photo } from '@data/types'
 import type { IconName } from '@data/icons'
@@ -62,9 +64,9 @@ export const applications = {
     },
     {
       id: 'operacao-sem-paradas',
-      label: 'Operação sem paradas',
+      label: 'Continuidade operacional',
       description:
-        'Locação, rebuild e reposição estratégica para manter sua produtividade em movimento.',
+        'Locação, rebuild e reposição estratégica que apoiam a redução de riscos de parada.',
       icon: 'wrench',
       photo: {
         src: operacao,

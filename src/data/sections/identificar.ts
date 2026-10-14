@@ -22,7 +22,7 @@ export const supportPanel = {
   title: 'Qual compressor a sua operação pede?',
   /** Trecho do título destacado em verde (precisa existir dentro de `title`). */
   highlight: 'operação pede?',
-  text: 'Informe os dados da sua operação: a engenharia da COAIR dimensiona pressão, vazão e potência e indica o modelo e a disponibilidade na cotação.',
+  text: 'A indicação do compressor depende da pressão, da vazão, do regime de operação e da variação de demanda. Informe esses dados: a engenharia da COAIR dimensiona o modelo e envia a disponibilidade na cotação.',
   microcopy: 'Dimensionamento feito pela engenharia',
   items: [
     { icon: 'gauge', label: 'Pressão', hint: 'de trabalho necessária' },

@@ -6,6 +6,8 @@
  *
  * COAIR Compressores: título e foto trocados a pedido do cliente (10/10/2026). A
  * foto já traz a pessoa e os compressores, então não há pessoa recortada (`person: null`).
+ * O "melhor custo-benefício do mercado" do título virou "excelente relação entre
+ * desempenho, eficiência e investimento" (14/10/2026): superlativo sem comprovação.
  * A garantia sempre acompanha a condicionante das manutenções obrigatórias.
  */
 import type { IconName } from '@data/icons'
@@ -25,8 +27,9 @@ export const why = {
   /** Cada item é uma linha do H2 (quebra forçada). */
   titleLines: [
     'Compressores de parafuso',
-    'de alta tecnologia com o melhor',
-    'custo‑benefício do mercado.',
+    'de alta tecnologia, com excelente',
+    'relação entre desempenho,',
+    'eficiência e investimento.',
   ],
   text: `Compressores de parafuso com projeto próprio ${site.brandShort}, dimensionados pela engenharia conforme a demanda, a pressão e a vazão da operação. Equipe técnica e laboratório internos, e garantia de 3 anos condicionada às manutenções obrigatórias previstas pela ${site.brandShort}.`,
   scene: {
